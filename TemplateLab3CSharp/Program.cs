@@ -1,97 +1,216 @@
-﻿// See https://aka.ms/new-console-template for more information
-using MyTask;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-/// <summary>
-///  Top-level statements 
-///  Код програми (оператори)  вищого рівня
-/// </summary>
-/// 
-Console.WriteLine("Hello, World!");
-//
-//  Приклад коду
-//
-
-Animal[] animals = new Animal[4];
-animals[0] = new Animal();
-animals[0].Name = "Bizon"; animals[0].WWeight=100;
-Console.WriteLine(" my animal " + animals[0].ToString());
-animals[1] = new Animal(100,10,"Cow");
-animals[2] = new Animal(102, 12, "Cow Big");
-animals[3] = new Animal(100, 10, "Zebra");
-
-for(int i = 0; i < 4; i++)
+namespace Lab3CS //1`st 
 {
-    Console.WriteLine("  animal " + i + " " + animals[i].ToString());
+    public class Rectangle
+    {
+        protected int a { get; set; }
+        protected int b { get; set; }
+        protected string color { get; }
+
+        public Rectangle(int a_, int b_, string color_)
+        {
+            if (a_ > 0)
+            {
+                a = a_;
+            }
+            if (b_ > 0)
+            {
+                b = b_;
+            }
+            color = color_;
+        }
+
+        public void GetSides()
+        {
+            Console.WriteLine($"A = {a}");
+            Console.WriteLine($"B = {b}");
+        }
+
+        public void GetPerimeter()
+        {
+            int perimeter = (2 * a) + (2 * b);
+            Console.WriteLine($"Perimeter equal: {perimeter}");
+        }
+
+        public void GetArea()
+        {
+            int area = a * b;
+            Console.WriteLine($"Area equal: {area}");
+        }
+
+        public void IsSquare()
+        {
+            if (a == b)
+            {
+                Console.WriteLine("Rectangle is SQUARE");
+            }
+            if (a != b)
+            {
+                Console.WriteLine("Rectangle is NOT SQUARE");
+            }
+        }
+    }
 }
 
-Big b = new Big();
-Console.WriteLine(" Big" + b +"   "+ b.ToString() + "  " + b.Name);
-
-Console.WriteLine(" Task 2");
-Task2.Run();
-     
-
-/// <summary>
-///  Закічення  іструкцій верхнього рівня
-/// Top-level statements must precede namespace and type declarations.
-/// Оператори верхнього рівня мають передувати оголошенням простору імен і типу.
-///   
-/// </summary>
-class Big
+namespace Lab3CS//2`nd
 {
-    private string name =" First init";
-    public Big()
+    public class Kadr
     {
-        name = "NoName";
-    }
-    public Big(string name)
-    {
-        this.name = name;
-        
-    }
-    public string Name { 
-        get { return name; } 
-        set { name = value; }
-    }
+        protected string viddil { get; set; }
 
-};
-namespace MyTask
-{
-    static class Task2
+        public Kadr(string viddil)
         {
-       public  static void Run()
-        {
-            Drv d = new Drv("RRR");
-            Console.WriteLine(" rrr  " + d.ToString());
+            this.viddil = viddil;
         }
-        }
-    class Base
-    {
-        string NameBase;
-        protected string any_Inform;
-        int type = 0;
-        public int numobj = 0;
-        public Base() {
-            NameBase = "Base";
-            any_Inform = "";
 
-        }
         public void Show()
         {
-            Console.WriteLine(" Show Base " + NameBase);
+            Console.WriteLine("Show Kadr:");
+            Console.WriteLine($"Viddil: {viddil}");
         }
-    };
+    }
 
-    class Drv :  Base
+    public class Robitnik : Kadr
     {
-        Drv()
+        protected string name { get; set; }
+        protected string surname { get; set; }
+
+        public Robitnik(string viddil, string name, string surname) : base(viddil)
         {
-            numobj = 10;
+            this.viddil = viddil;
+            this.name = name;
+            this.surname = surname;
         }
-       public Drv(string any_Inform)
+
+        public void Show()
         {
-            numobj = 11;
-            this.any_Inform = any_Inform;
+            Console.WriteLine("Show Robitnik:");
+            Console.WriteLine($"Viddil: {this.viddil}");
+            Console.WriteLine($"Name: {this.name}");
+            Console.WriteLine($"Surname: {this.surname}");
+        }
+    }
+
+    public class Ingener : Robitnik
+    {
+        protected int category { get; set; }
+
+        public Ingener(string viddil, string name, string surname, int category) : base(viddil, name, surname)
+        {
+            this.category = category;
+            this.viddil = viddil;
+            this.name = name;
+            this.surname = surname;
+        }
+
+        public void Show()
+        {
+            Console.WriteLine("Show Robitnik:");
+            Console.WriteLine($"Viddil: {this.viddil}");
+            Console.WriteLine($"Name: {this.name}");
+            Console.WriteLine($"Surname: {this.surname}");
+            Console.WriteLine($"Category: {this.category}");
+        }
+    }
+
+    public class Administration : Robitnik
+    {
+        protected string posada { get; set; }
+
+        public Administration(string viddil, string name, string surname, string posada) : base(viddil, name, surname)
+        {
+            this.posada = posada;
+            this.viddil = viddil;
+            this.name = name;
+            this.surname = surname;
+        }
+
+        public void Show()
+        {
+            Console.WriteLine("Show Robitnik:");
+            Console.WriteLine($"Viddil: {this.viddil}");
+            Console.WriteLine($"Name: {this.name}");
+            Console.WriteLine($"Surname: {this.surname}");
+            Console.WriteLine($"Posada: {this.posada}");
         }
     }
 }
+
+namespace Lab3CS
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int choose = 0;
+            do
+            {
+                Console.Write("Which excersice you want to test? (1 or 2): ");
+                choose = int.Parse(Console.ReadLine());
+            } while (choose != 1 && choose != 2);
+
+            switch (choose)
+            {
+                case 1:
+                    Console.WriteLine("1.");
+                    {
+                        Console.Write("Input A side: ");
+                        int a = int.Parse(Console.ReadLine());
+                        Console.Write("Input B side: ");
+                        int b = int.Parse(Console.ReadLine());
+                        Console.Write("Input color of rectangle (string): ");
+                        string color = Console.ReadLine();
+                        Console.WriteLine();
+
+                        Console.WriteLine("Method of printing sides:");
+                        Rectangle A = new Rectangle(a, b, color);
+                        A.GetSides();
+                        Console.WriteLine();
+
+                        Console.WriteLine("Method of printing perimeter:");
+                        A.GetPerimeter();
+                        Console.WriteLine();
+
+                        Console.WriteLine("Method of printing area:");
+                        A.GetArea();
+                        Console.WriteLine();
+
+                        Console.WriteLine("Method of checking for a square:");
+                        A.IsSquare();
+                        Console.WriteLine();
+                    }
+                    break;
+                case 2:
+                    Console.WriteLine("2.");
+                    {
+                        Kadr kadr = new Kadr("Машинотехнiки");
+                        kadr.Show();
+                        Console.WriteLine();
+
+                        Robitnik robitnik = new Robitnik("Танкобудування", "Юрiй", "Буруняк");
+                        robitnik.Show();
+                        Console.WriteLine();
+
+                        Ingener ingener = new Ingener("Вiдновлювання", "Денис", "Юлiйович", 3);
+                        ingener.Show();
+                        Console.WriteLine();
+
+                        Administration admin = new Administration("Перевiрки", "Юлiй", "Цезар", "Головнокомандувач");
+                        admin.Show();
+                        Console.WriteLine();
+                    }
+                    break;
+                default:
+                    Console.WriteLine("Something went wrong!");
+                    break;
+            }
+        }
+    }
+}
+
+
